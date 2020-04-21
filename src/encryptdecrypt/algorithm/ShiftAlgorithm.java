@@ -2,7 +2,7 @@ package encryptdecrypt.algorithm;
 
 public class ShiftAlgorithm implements Algorithm {
 
-    AlgorithmMode mode;
+    private AlgorithmMode mode;
 
     public ShiftAlgorithm(AlgorithmMode mode) {
         this.mode = mode;

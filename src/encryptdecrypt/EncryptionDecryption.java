@@ -6,16 +6,16 @@ import encryptdecrypt.algorithm.ShiftAlgorithm;
 import encryptdecrypt.algorithm.UnicodeAlgorithm;
 import encryptdecrypt.input.ArgsInputOption;
 import encryptdecrypt.input.FileInputOption;
-import encryptdecrypt.input.InputSelection;
+import encryptdecrypt.input.InputOption;
 import encryptdecrypt.output.FileOutputOption;
-import encryptdecrypt.output.OutputSelection;
+import encryptdecrypt.output.OutputOption;
 import encryptdecrypt.output.TerminalOutputOption;
 
 public class EncryptionDecryption {
     private OptionsHandler options;
-    private InputSelection inputSelection;
+    private InputOption inputOption;
     private AlgorithmSelection algorithmSelection;
-    private OutputSelection outputSelection;
+    private OutputOption outputSelection;
     private String data;
 
     public EncryptionDecryption(OptionsHandler optionsHandler) {
@@ -31,11 +31,10 @@ public class EncryptionDecryption {
     }
 
     private void selectOutput() {
-        outputSelection = new OutputSelection();
         if (options.getOutPutOption().equals("file")) {
-            outputSelection.setOutputOption(new FileOutputOption(options.getFileNameWrite()));
+            outputSelection = new FileOutputOption(options.getFileNameWrite());
         } else {
-            outputSelection.setOutputOption(new TerminalOutputOption());
+            outputSelection = new TerminalOutputOption();
         }
     }
 
@@ -44,7 +43,7 @@ public class EncryptionDecryption {
     }
 
     private void executeAlgorithm() {
-        data = algorithmSelection.execute(inputSelection.getInputData(), options.geteNumber());
+        data = algorithmSelection.execute(inputOption.load(), options.geteNumber());
     }
 
     private void selectAlgorithm() {
@@ -78,12 +77,10 @@ public class EncryptionDecryption {
     }
 
     private void getInput() {
-        inputSelection = new InputSelection();
-
         if (options.getFileNameRead() != null) {
-            inputSelection.setInputOption(new FileInputOption(options.getFileNameRead()));
+            inputOption = new FileInputOption(options.getFileNameRead());
         } else {
-            inputSelection.setInputOption(new ArgsInputOption(options.getMessage()));
+            inputOption = new ArgsInputOption(options.getMessage());
         }
     }
 }
