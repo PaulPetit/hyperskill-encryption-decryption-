@@ -20,8 +20,7 @@ public class OptionsHandler {
                 case "-mode":
                     actionType = args[i + 1];
                     if (!(actionType.equalsIgnoreCase("enc") || actionType.equalsIgnoreCase("dec"))) {
-                        System.out.println("Unknown operation");
-                        break;
+                        throw new IllegalArgumentException("-mode should be enc or dec, got " + actionType);
                     }
                     break;
                 case "-key":
